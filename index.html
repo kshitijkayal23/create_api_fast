@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Project</title>
+</head>
+<body>
+    <button class="blue-button" id="createButton">Create New</button>
+
+    <script>
+        // Add an event listener to the button
+        document.getElementById('createButton').addEventListener('click', async () => {
+            try {
+                // Make an API request to create a new project
+                const response = await fetch('http://localhost:8000/create_project/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: 'My Project',
+                        email: 'project@example.com',
+                        password: 'secretpassword'
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('Project created successfully:', data);
+                } else {
+                    console.error('API request failed:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error creating project:', error);
+            }
+        });
+    </script>
+</body>
+</html>
